@@ -19,7 +19,8 @@ Clean UI styled with Tailwind CSS, matching the Figma design.
 
 📸 Screenshots
 
-(Add screenshots from your app or Figma design once you have them — this helps showcase your project visually.)
+<img width="732" height="506" alt="brainburst" src="https://github.com/user-attachments/assets/79af89ca-622d-403d-9d11-cb4cdf78dff8" />
+
 
 🛠️ Tech Stack
 
