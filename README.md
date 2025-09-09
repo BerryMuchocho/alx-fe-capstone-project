@@ -32,4 +32,20 @@ React Router – navigation between pages
 
 Open Trivia DB API – quiz question data source
 
-Netlify/Vercel – deployment
+📈 Lessons Learned
+
+How to integrate an external API into a React app.
+
+Using React Router for multi-page navigation.
+
+Converting a Figma design into responsive code with Tailwind CSS.
+
+Better commit discipline and project management on GitHub.
+
+🔮 Future Improvements
+
+Add a quiz history so users can track past scores.
+
+Include a timer for each question.
+
+Implement dark mode for better accessibility.
