@@ -1,12 +1,34 @@
-# React + Vite
+BrainBurst 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive quiz application built with React, Tailwind CSS, and the Open Trivia Database API.
+Users can take quizzes on different topics, track their scores, and enjoy a clean, fun, and interactive experience.
 
-Currently, two official plugins are available:
+Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Fetches quiz questions dynamically from the Open Trivia DB API.
 
-## Expanding the ESLint configuration
+Multiple categories and difficulty levels (Easy, Medium, Hard).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Displays one question at a time with multiple-choice answers.
+
+Tracks user score and shows results at the end.
+
+Responsive design for desktop, tablet, and mobile.
+
+Clean UI styled with Tailwind CSS, matching the Figma design.
+
+📸 Screenshots
+
+(Add screenshots from your app or Figma design once you have them — this helps showcase your project visually.)
+
+🛠️ Tech Stack
+
+React (Vite) – frontend framework
+
+Tailwind CSS – styling and layout
+
+React Router – navigation between pages
+
+Open Trivia DB API – quiz question data source
+
+Netlify/Vercel – deployment
