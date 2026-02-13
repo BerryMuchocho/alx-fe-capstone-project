@@ -1,6 +1,10 @@
+import QuestionCard from "../components/QuestionCard";
+
 function Quiz() {
     return (
-        <h1> Quiz Page</h1>
+        <div>
+            <QuestionCard />
+        </div>
     );
 }
 

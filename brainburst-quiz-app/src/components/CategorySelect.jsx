@@ -1,8 +1,12 @@
 import React from 'react';
 
-function CategorySelect({categories, selectCategory, onChange}) {
+function CategorySelect({categories, selectedCategory, onChange}) {
     return (
-        <select value={selectedCategory} onChange={onChange} className="p-2 border rounded">
+        <select 
+            value={selectedCategory} 
+            onChange={(event) => onChange(event.target.value)} 
+            className="p-2 border rounded shadow focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">Select Category</option>
             {categories.map((category) => (
                 <option key={category.id} value={category.id}>
                     {category.name}
