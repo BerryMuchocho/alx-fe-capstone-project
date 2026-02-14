@@ -1,6 +1,12 @@
+import Layout from "../components/Layout";
+
 function Results() {
     return (
-        <h1> Results Page</h1>
+    <Layout>
+        <div className="max-w-md mx-auto text-center space-y-6">
+            <h1 className="text-2xl font-bold"> Results Page </h1>
+        </div>
+    </Layout>
     );
 }
 

@@ -5,7 +5,7 @@ function CategorySelect({categories, selectedCategory, onChange}) {
         <select 
             value={selectedCategory} 
             onChange={(event) => onChange(event.target.value)} 
-            className="p-2 border rounded shadow focus:outline-none focus:ring-2 focus:ring-blue-500">
+            className="p-2 border rounded shadow focus:outline-none focus:ring-2 focus:ring-blue-500 text-black w-full">
             <option value="">Select Category</option>
             {categories.map((category) => (
                 <option key={category.id} value={category.id}>

@@ -2,13 +2,13 @@ import React from 'react';
 
 function QuestionCard({ question, answers, onAnswerSelect }) {
     return (
-        <div className="p-4 bg-white text-black rounded shadow">
+        <div className="space-y-6">
             <h2 className="mb-4" dangerouslySetInnerHTML={{__html: question}} />
-            <ul>
+            <ul className="space-y-3">
                 {answers.map((answer => (
                     <li key={answer}
                     onClick={() => onAnswerSelect(answer)}
-                    className="cursor-pointer mb-2 p-2 bg-gray-100 text-black rounded hover:bg-gray-200" >
+                    className="cursor-pointer p-3 border rounded-lg hover:bg-gray-100 transition" >
                         <span dangerouslySetInnerHTML={{__html: answer}} />
                     </li>
                 )))}

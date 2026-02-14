@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import QuestionCard from "../components/QuestionCard";
-
+import Layout from "../components/Layout";
 
 function Quiz() {
 
@@ -46,16 +46,19 @@ function Quiz() {
     }
 
     return (
-        <div className="p-6 max-w-xl mx-auto">
-            <h2 className="mb-4 text-xl font-bold text-center"> 
+        <Layout>
+        <div className="p-6 max-w-2xl mx-auto text-black space-y-6">
+            <h2 className="mb-4 text-xl text-center font-semibold"> 
                 Question {currentQuestionIndex + 1} of {mockQuestions.length}
             </h2>
+
             <QuestionCard
             question={currentQuestion.question}
             answers={answers}
             onAnswerSelect={handleAnswerSelect} 
             />
         </div>
+        </Layout>
     );
 }
 
