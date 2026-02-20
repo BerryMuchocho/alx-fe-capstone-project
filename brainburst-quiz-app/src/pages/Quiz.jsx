@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import QuestionCard from "../components/QuestionCard";
 import Layout from "../components/Layout";
+import ProgressBar from "../components/ProgressBar";
+import Timer from "../components/Timer";
+import logo from "../assets/brainburst.png";
 
 function Quiz() {
     const navigate = useNavigate();
@@ -64,41 +67,54 @@ function Quiz() {
         );
     }
 
-    const currentQuestion = questions[currentQuestionIndex];
+        const currentQuestion = questions[currentQuestionIndex];
 
-    function handleAnswer(selectedAnswer) {
-        const isCorrect = selectedAnswer === currentQuestion.correct_answer;
-        const updatedScore = isCorrect ? score + 1 : score;
+        const timeMap = { easy: 30, medium: 20, hard: 15 };
 
-        if (currentQuestionIndex + 1 < questions.length) {
-            setScore(updatedScore);
-            setCurrentQuestionIndex((prev) => prev + 1);
-        } else {
-            navigate("/results", {
-                state: {
-                    score: updatedScore,
-                    total: questions.length,
-                },
-            });
+        function handleAnswer(selectedAnswer = null) {
+            const isCorrect = selectedAnswer === currentQuestion.correct_answer;
+            const updatedScore = isCorrect ? score + 1 : score;
+
+            if (currentQuestionIndex + 1 < questions.length) {
+                setScore(updatedScore);
+                setCurrentQuestionIndex((prev) => prev + 1);
+            } else {
+                navigate("/results", {
+                    state: {
+                        score: updatedScore,
+                        total: questions.length,
+                        quizConfig: {
+                            category,
+                            difficulty,
+                            amount,
+                        },
+                    },
+                });
+            }
         }
-    }
 
     return (
         <Layout>
             <div className="max-w-2xl mx-auto">
-                <h2 className="mb-6 text-2xl font-bold text-center">
-                    Question {currentQuestionIndex + 1} of {questions.length}
-                </h2>
+                <div className="w-full space-y-4">
+                    <div className="flex items-center justify-between w-full">
+                        <img src={logo} alt="logo" className="h-10" />
+                        <ProgressBar current={currentQuestionIndex + 1} total={questions.length} />
+                    </div>
 
-                <p className="mb-4 text-center text-gray-600 capitalize">
-                    Difficulty: {difficulty}
-                </p>
+                    <div className="flex items-center justify-between">
+                        <div className="text-sm text-gray-700">Question {currentQuestionIndex + 1} of {questions.length}</div>
+                        <Timer initialTime={timeMap[difficulty] || 30} onTimeUp={() => handleAnswer(null)} resetKey={currentQuestionIndex} />
+                    </div>
 
-                <QuestionCard
-                    question={currentQuestion.question}
-                    answers={currentQuestion.options}
-                    onAnswerSelect={handleAnswer}
-                />
+                    <p className="text-gray-600 capitalize">Difficulty: {difficulty}</p>
+
+                    <QuestionCard
+                        question={currentQuestion.question}
+                        answers={currentQuestion.options}
+                        onAnswerSelect={handleAnswer}
+                    />
+                </div>
             </div>
         </Layout>
     );

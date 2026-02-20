@@ -1,10 +1,6 @@
-function Button({ children, onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      className="
+function Button({ children, onClick, className = "", type = "button", disabled = false }) {
+  const baseClasses = `
         w-full 
-        sm:w-auto        
         px-6 py-2 
         bg-blue-600 
         text-white 
@@ -12,7 +8,16 @@ function Button({ children, onClick }) {
         rounded-lg 
         hover:bg-blue-700 
         transition-colors
-      "
+        disabled:opacity-60
+        disabled:cursor-not-allowed
+      `;
+
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`${baseClasses} ${className}`}
     >
       {children}
     </button>

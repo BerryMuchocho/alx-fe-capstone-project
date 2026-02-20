@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import Button from "../components/Button";
+import logo from "../assets/brainburst.png";
 
 function Home() {
     const navigate = useNavigate();
@@ -52,62 +53,68 @@ function Home() {
 
     return (
         <Layout>
-            <div className="max-w-md mx-auto mt-20 text-center space-y-6">
-                <h1 className="text-4xl font-extrabold text-blue-600">BrainBurst</h1>
-                <p className="text-lg text-gray-500">Beat the clock, have fun!</p>
+            <div className="w-full text-center">
+                <img src={logo} alt="brainburst" className="mx-auto h-28 mb-4" />
+                <p className="text-gray-600 mb-6">Beat the clock. Have fun!</p>
 
-                {/* Category Selection */}
-                <div className="mb-4 text-left">
-                    <label className="block mb-1 font-semibold">Select Category:</label>
-                    <select
-                        value={selectedCategory}
-                        onChange={(e) => setSelectedCategory(e.target.value)}
-                        className="border border-gray-300 rounded px-3 py-2 w-full"
+                <div className="space-y-4 max-w-sm mx-auto">
+                    {/* Category Selection */}
+                    <div>
+                        <label className="block mb-2 font-semibold text-left">Select Category</label>
+                        <select
+                            value={selectedCategory}
+                            onChange={(e) => setSelectedCategory(e.target.value)}
+                            className="border border-gray-300 rounded px-3 py-2 w-full bg-white"
+                        >
+                            {categories.map((cat) => (
+                                <option key={cat.id} value={cat.id}>
+                                    {cat.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    {/* Difficulty Selection as pills */}
+                    <div>
+                        <label className="block mb-2 font-semibold text-left">Select Difficulty</label>
+                        <div className="flex gap-3">
+                            {difficulties.map((level) => (
+                                <button
+                                    key={level}
+                                    onClick={() => setSelectedDifficulty(level)}
+                                    className={`flex-1 py-2 rounded-lg border font-medium ${
+                                        selectedDifficulty === level
+                                            ? "bg-blue-500 text-white border-transparent"
+                                            : "bg-white text-gray-700 border-gray-300"
+                                    }`}
+                                >
+                                    {level.charAt(0).toUpperCase() + level.slice(1)}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Number of Questions */}
+                    <div>
+                        <label className="block mb-2 font-semibold text-left">Number of Questions</label>
+                        <input
+                            type="number"
+                            min={1}
+                            max={50}
+                            value={numQuestions}
+                            onChange={(e) => setNumQuestions(e.target.value)}
+                            className="border border-gray-300 rounded px-3 py-2 w-full"
+                        />
+                    </div>
+
+                    {/* Start Quiz Button */}
+                    <Button
+                        className="bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded w-full"
+                        onClick={startQuiz}
                     >
-                        {categories.map((cat) => (
-                            <option key={cat.id} value={cat.id}>
-                                {cat.name}
-                            </option>
-                        ))}
-                    </select>
+                        Start Quiz
+                    </Button>
                 </div>
-
-                {/* Difficulty Selection */}
-                <div className="mb-4 text-left">
-                    <label className="block mb-1 font-semibold">Select Difficulty:</label>
-                    <select
-                        value={selectedDifficulty}
-                        onChange={(e) => setSelectedDifficulty(e.target.value)}
-                        className="border border-gray-300 rounded px-3 py-2 w-full"
-                    >
-                        {difficulties.map((level) => (
-                            <option key={level} value={level}>
-                                {level.charAt(0).toUpperCase() + level.slice(1)}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
-                {/* Number of Questions */}
-                <div className="mb-4 text-left">
-                    <label className="block mb-1 font-semibold">Number of Questions:</label>
-                    <input
-                        type="number"
-                        min={1}
-                        max={50}
-                        value={numQuestions}
-                        onChange={(e) => setNumQuestions(e.target.value)}
-                        className="border border-gray-300 rounded px-3 py-2 w-full"
-                    />
-                </div>
-
-                {/* Start Quiz Button */}
-                <Button
-                    className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded w-full"
-                    onClick={startQuiz}
-                >
-                    Start Quiz
-                </Button>
             </div>
         </Layout>
     );
