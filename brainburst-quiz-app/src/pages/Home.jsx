@@ -64,7 +64,7 @@ function Home() {
                         <select
                             value={selectedCategory}
                             onChange={(e) => setSelectedCategory(e.target.value)}
-                            className="border border-gray-300 rounded px-3 py-2 w-full bg-white"
+                            className="border border-gray-300 rounded px-3 py-2 w-full bg-white text-slate-900"
                         >
                             {categories.map((cat) => (
                                 <option key={cat.id} value={cat.id}>
@@ -85,7 +85,7 @@ function Home() {
                                     className={`flex-1 py-2 rounded-lg border font-medium ${
                                         selectedDifficulty === level
                                             ? "bg-blue-500 text-white border-transparent"
-                                            : "bg-white text-gray-700 border-gray-300"
+                                            : "bg-white text-slate-800 border-gray-300"
                                     }`}
                                 >
                                     {level.charAt(0).toUpperCase() + level.slice(1)}
@@ -103,7 +103,7 @@ function Home() {
                             max={50}
                             value={numQuestions}
                             onChange={(e) => setNumQuestions(e.target.value)}
-                            className="border border-gray-300 rounded px-3 py-2 w-full"
+                            className="border border-gray-300 rounded px-3 py-2 w-full bg-white text-slate-900"
                         />
                     </div>
 
