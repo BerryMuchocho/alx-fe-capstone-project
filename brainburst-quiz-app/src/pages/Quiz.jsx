@@ -6,11 +6,13 @@ import ProgressBar from "../components/ProgressBar";
 import Timer from "../components/Timer";
 import logo from "../assets/brainburst.png";
 
+const QUIZ_SESSION_KEY = "brainburst_quiz_session_v1";
+
 function Quiz() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Read quiz config from navigation state (fallbacks are fine)
+  // Read quiz config from navigation state 
   const { category = 9, difficulty = "easy", amount = 10 } = location.state || {};
 
   const timeMap = { easy: 30, medium: 20, hard: 15 };
@@ -23,8 +25,37 @@ function Quiz() {
 
   const isTransitioningRef = useRef(false);
 
-  // Fetch questions (StrictMode-safe: abort + ignore stale runs)
+  // 1) Restore session on mount (handles refresh)
   useEffect(() => {
+    const raw = sessionStorage.getItem(QUIZ_SESSION_KEY);
+    if (!raw) return;
+
+    try {
+      const saved = JSON.parse(raw);
+
+      // Only restore if it matches the same quiz config
+      const sameConfig =
+        Number(saved?.quizConfig?.category) === Number(category) &&
+        String(saved?.quizConfig?.difficulty) === String(difficulty) &&
+        Number(saved?.quizConfig?.amount) === Number(amount);
+
+      if (sameConfig && Array.isArray(saved?.questions) && saved.questions.length > 0) {
+        setQuestions(saved.questions);
+        setCurrentQuestionIndex(saved.currentQuestionIndex ?? 0);
+        setScore(saved.score ?? 0);
+        setLoading(false);
+        setError(null);
+        isTransitioningRef.current = false;
+      }
+    } catch {
+      sessionStorage.removeItem(QUIZ_SESSION_KEY);
+    }
+  }, [amount, category, difficulty]);
+
+  // 2) Fetch questions only if we don't already have them
+  useEffect(() => {
+    if (questions.length > 0) return; // already restored from session or already fetched
+
     const controller = new AbortController();
     let active = true;
 
@@ -61,9 +92,19 @@ function Quiz() {
         setCurrentQuestionIndex(0);
         setScore(0);
         isTransitioningRef.current = false;
+
+        // Save fresh session immediately (so refresh works right away)
+        sessionStorage.setItem(
+          QUIZ_SESSION_KEY,
+          JSON.stringify({
+            quizConfig: { category, difficulty, amount },
+            questions: formattedQuestions,
+            currentQuestionIndex: 0,
+            score: 0,
+          })
+        );
       } catch (err) {
         if (err?.name === "AbortError") return; // expected in dev StrictMode
-
         if (!active) return;
         setError(err?.message || "Failed to fetch questions.");
       } finally {
@@ -77,7 +118,22 @@ function Quiz() {
       active = false;
       controller.abort();
     };
-  }, [amount, category, difficulty]);
+  }, [amount, category, difficulty, questions.length]);
+
+  // 3) Persist progress as user moves through questions
+  useEffect(() => {
+    if (questions.length === 0) return;
+
+    sessionStorage.setItem(
+      QUIZ_SESSION_KEY,
+      JSON.stringify({
+        quizConfig: { category, difficulty, amount },
+        questions,
+        currentQuestionIndex,
+        score,
+      })
+    );
+  }, [amount, category, difficulty, questions, currentQuestionIndex, score]);
 
   // Reset transition guard when moving to a new question
   useEffect(() => {
@@ -98,6 +154,9 @@ function Quiz() {
         setScore(updatedScore);
         setCurrentQuestionIndex((prev) => prev + 1);
       } else {
+        // Quiz complete — clear session so refresh doesn't revive old quiz
+        sessionStorage.removeItem(QUIZ_SESSION_KEY);
+
         navigate("/results", {
           state: {
             score: updatedScore,
@@ -130,7 +189,15 @@ function Quiz() {
   if (error) {
     return (
       <Layout>
-        <p className="text-center text-red-500">{error}</p>
+        <div className="text-center space-y-3">
+          <p className="text-center text-red-500">{error}</p>
+          <button
+            onClick={() => navigate("/")}
+            className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+          >
+            Back to Home
+          </button>
+        </div>
       </Layout>
     );
   }

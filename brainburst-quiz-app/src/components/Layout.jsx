@@ -8,7 +8,7 @@ function Layout({ children }) {
 
   return (
     <div className="min-h-screen bg-slate-100 text-slate-900 flex flex-col">
-      <header className="h-16 border-b boarder-slate-200 bg-white flex items-center">
+      <header className="sticky top-0 z-20 h-16 border-b border-slate-200 bg-white flex items-center">
         <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-4 sm:px-6">
           
           <Link to="/" className="flex items-center">
