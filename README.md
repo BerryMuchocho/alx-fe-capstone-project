@@ -75,6 +75,20 @@ The user answers questions within a time limit.
 
 Score is calculated and displayed on the results page.
 
+Key Concepts Demonstrated
+
+Managing multiple pieces of state
+
+Passing state via React Router
+
+Handling asynchronous API calls
+
+Conditional UI updates based on user input
+
+Controlled form inputs
+
+Basic user validation
+
 Future Improvements
 
 Dark mode toggle
@@ -90,3 +104,8 @@ Leaderboard functionality
 Improved accessibility
 
 Global state management (Context API)
+
+Author
+
+Your Name
+Front-End Developer
