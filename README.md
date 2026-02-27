@@ -1,9 +1,9 @@
-BrainBurst Quiz App
+# BrainBurst Quiz App
 
 BrainBurst is a timed quiz application built with React and Tailwind CSS.
 It allows users to test their knowledge across multiple categories and difficulty levels using real-time trivia data from the Open Trivia Database API.
 
-Project Goal
+## Project Goal
 
 The goal of this project was to build a dynamic, state-driven React application that demonstrates:
 
@@ -23,11 +23,11 @@ Clean UI design with Tailwind CSS
 
 This project was developed as a capstone project to demonstrate practical front-end development skills.
 
-Live Demo
+## Live Demo
 
 (Add your Vercel link here once deployed)
 
-Features
+## Features
 
 Fetches quiz categories dynamically from Open Trivia API
 
@@ -45,7 +45,7 @@ Results page with performance summary
 
 Responsive layout for desktop and mobile
 
-Tech Stack
+## Tech Stack
 
 React (Vite)
 
@@ -57,7 +57,7 @@ Open Trivia Database API
 
 Vercel (deployment)
 
-How It Works
+## How It Works
 
 On load, the app fetches quiz categories from the API.
 
@@ -75,7 +75,7 @@ The user answers questions within a time limit.
 
 Score is calculated and displayed on the results page.
 
-Key Concepts Demonstrated
+## Key Concepts Demonstrated
 
 Managing multiple pieces of state
 
@@ -89,7 +89,7 @@ Controlled form inputs
 
 Basic user validation
 
-Future Improvements
+## Future Improvements
 
 Dark mode toggle
 
@@ -105,7 +105,7 @@ Improved accessibility
 
 Global state management (Context API)
 
-Author
+## Author
 
-Your Name
+Stellah Muchocho
 Front-End Developer
